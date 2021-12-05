@@ -1,24 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Reservations from "./contents/main/reservations";
 
 function App() {
+  let data = {
+    roomId: 1,
+    date: "2022-01-01"
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Reservations data={data} />
   );
 }
 
