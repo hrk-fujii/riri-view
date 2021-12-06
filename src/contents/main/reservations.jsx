@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
+import util from "../../utils/util";
 import apiUtil from "../../utils/apiUtil";
 import viewUtil from "../../utils/viewUtil";
 
@@ -16,8 +17,10 @@ const Reservations = (props) => {
     } else if (reservationObjects === "error") {
         return viewUtil.error();
     } else {
-        reservationObjects.foreach((v) => {
-            reservations.push(<><td>{v.startAt.getHours()}</td><td>{v.endAt.getMinutes()}</td><td>{v.name}</td></>);
+        reservationObjects.reservations.forEach((v) => {
+            v.startAt = new Date(v.start_at);
+            v.endAt = new Date(v.end_at);
+            reservations.push(<tr><td>{util.time2String(v.startAt)}</td><td>{util.time2String(v.endAt)}</td><td>{v.name}</td></tr>);
         });
     }
 
@@ -25,8 +28,8 @@ const Reservations = (props) => {
     return (
         <Row>
             <Col className="12">
-                <table><th>開始時刻</th><th>終了時刻</th><th>名前</th>
-                    {reservations}
+                <table><thead><tr><th>開始時刻</th><th>終了時刻</th><th>名前</th></tr></thead>
+                    <tbody>{reservations}</tbody>
                 </table>
             </Col>
         </Row>
