@@ -11,7 +11,7 @@ const apiUtil = {
             roomId: roomId,
             date: date
         }
-        connector.getJson("reservations", json, callBack, errorFunc);
+        connector.getJson("schedules", {params: json}, callBack, errorFunc);
     }
 }
 
