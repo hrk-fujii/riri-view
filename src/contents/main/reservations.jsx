@@ -10,7 +10,7 @@ const Reservations = (props) => {
 
     let reservations = [];
     if (reservationObjects === null) {
-        apiUtil.getReservations(setReservationObjects, props.data.roomId, props.data.date);
+        apiUtil.getReservations(setReservationObjects, props.state.roomId, props.state.date);
         return viewUtil.loading();
     } else if (reservationObjects === []) {
         reservations = (<p>予約がありません。</p>);
