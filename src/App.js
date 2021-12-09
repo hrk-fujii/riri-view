@@ -1,14 +1,22 @@
+import { useState } from "react";
+
 import Reservations from "./contents/main/reservations";
+import Selector from "./contents/main/selector";
 
 function App() {
-  let data = {
-    roomId: 1,
-    date: "2021-12-1"
+  const [page, setPage] = useState("selector");
+
+  const [state, setState] = useState({});
+
+  if (page === "selector") {
+    return (<>
+      <Selector setState={setState} setPage={setPage}/>
+    </>);
+  } else {
+    return (<>
+      <Reservations state={state} />
+    </>);
   }
-  
-  return (
-    <Reservations data={data} />
-  );
 }
 
 export default App;

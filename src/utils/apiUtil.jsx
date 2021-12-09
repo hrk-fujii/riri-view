@@ -12,6 +12,14 @@ const apiUtil = {
             date: date
         }
         connector.getJson("schedules", {params: json}, callBack, errorFunc);
+    },
+
+    getRooms: (callBack) => {
+        const errorFunc = (val) => {
+            util.log(val);
+            return callBack("error");
+        }
+        connector.getJson("rooms", {}, callBack, errorFunc);
     }
 }
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 
+import apiUtil from "../../utils/apiUtil";
+
 const stateIsValid = (state) => {
     switch (state.roomId) {
         case "loading":
@@ -25,23 +27,29 @@ const Selector = (props) => {
         date: ""
     });
     
+    if (roomObjects === null) {
+        setRoomObjects("loading");
+        apiUtil.getRooms(setRoomObjects);
+    }
+    
+    
     let date = new Date();
     const today = new Date();
     let dates = [];
 
-    for(i=0; i< 30; i++) {
-        dateStr = date.getMonth() + "月" + date.getDate() + "日";
+    for(let i=0; i< 30; i++) {
+        let dateStr = date.getMonth() + "月" + date.getDate() + "日";
         let dateVal = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         if (today === date) {
             dates.push(<option id={"date_" + dateVal} value={dateVal}>{dateStr}（本日）</option>);
         } else {
             dates.push(<option id={"date_" + dateVal} value={dateVal}>{dateStr}</option>);
         }
-        date = date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() + 1);
     }
 
     let rooms = [];
-    if (roomObjects === null) {
+    if ((roomObjects === null)  || (roomObjects === "loading")) {
         rooms.push(<option id="rooms_loading" value="loading">読み込み中...</option>);
     } else if (roomObjects === "error") {
         rooms.push(<option id="rooms_error" value="error">お部屋情報を読み込めません</option>);
@@ -52,8 +60,10 @@ const Selector = (props) => {
     } else {
         roomObjects.rooms.forEach((v) => {
             rooms.push(<option id={"rooms_" + v.id} value={v.id}>{v.name}</option>);
+        });
+        if (formState.roomId !== roomObjects.rooms[0].id) {
+            setFormState(s => ({...s, roomId: roomObjects.rooms[0].id}));
         }
-        setFormState(s => ({...s, roomId: roomObjects.rooms[0].id}));
     }
 
     let viewButton = false;
@@ -68,10 +78,16 @@ const Selector = (props) => {
         setFormState(s => ({...s, [k]: e.target.value}));
     }
 
+    const handleSubmit = () => {
+        return true;
+    }
+
     return (<>
-        <select name="roomId" value={formState.roomId} onChange={handleChange}>{rooms</select>
+        <select name="roomId" value={formState.roomId} onChange={handleChange}>{rooms}</select>
         <select name="date" value={formState.date} onChange={handleChange}>{dates}</select>
         {viewButton && <Button onClick={()=>{handleSubmit()}} variant="success">表示</Button>}
     </>);
     
 }
+
+export default Selector;
