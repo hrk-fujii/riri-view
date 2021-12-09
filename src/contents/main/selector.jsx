@@ -26,6 +26,11 @@ const Selector = (props) => {
         roomId: "loading",
         date: ""
     });
+    const changeFormState = (key, val) => {
+        if (formState[key] !== val) {
+            setFormState(s => ({...s, [key]: val}));
+        }
+    }
     
     if (roomObjects === null) {
         setRoomObjects("loading");
@@ -38,9 +43,9 @@ const Selector = (props) => {
     let dates = [];
 
     for(let i=0; i< 30; i++) {
-        let dateStr = date.getMonth() + "月" + date.getDate() + "日";
-        let dateVal = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
-        if (today === date) {
+        let dateStr = (date.getMonth() + 1) + "月" + date.getDate() + "日";
+        let dateVal = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        if (today.getTime() === date.getTime()) {
             dates.push(<option id={"date_" + dateVal} value={dateVal}>{dateStr}（本日）</option>);
         } else {
             dates.push(<option id={"date_" + dateVal} value={dateVal}>{dateStr}</option>);
@@ -53,17 +58,15 @@ const Selector = (props) => {
         rooms.push(<option id="rooms_loading" value="loading">読み込み中...</option>);
     } else if (roomObjects === "error") {
         rooms.push(<option id="rooms_error" value="error">お部屋情報を読み込めません</option>);
-        setFormState(s => ({...s, roomId: "error"}));
+        changeFormState("roomId", "error");
     } else if ((roomObjects.rooms === undefined) || (roomObjects.rooms === [])) {
         rooms.push(<option id="rooms_none" value="none">お部屋情報がありません</option>);
-        setFormState(s => ({...s, roomId: "none"}));
+        changeFormState("roomId", "none");
     } else {
         roomObjects.rooms.forEach((v) => {
             rooms.push(<option id={"rooms_" + v.id} value={v.id}>{v.name}</option>);
         });
-        if (formState.roomId !== roomObjects.rooms[0].id) {
-            setFormState(s => ({...s, roomId: roomObjects.rooms[0].id}));
-        }
+        changeFormState("roomId", roomObjects.rooms[0].id);
     }
 
     let viewButton = false;
