@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 
+import apiUtil from "../../utils/apiUtil";
+
 const stateIsValid = (state) => {
     if ((state.hour === "none") || (state.minute === "none")) {
         return false;
@@ -14,7 +16,8 @@ const stateIsValid = (state) => {
 const CreateReserve = (props) => {
     const [pageState, setPageState] = useState({
         isLoading: false,
-        error: ""
+        error: "",
+        success: false
     });
     const [formState, setFormState] = useState({
         hour: "none",
@@ -49,7 +52,12 @@ const CreateReserve = (props) => {
     }
 
     const handleSubmit = () => {
-        return true;
+        apiUtil.createReservation(setPageState, {
+            name: formState.name,
+            roomId: props.state.roomId,
+            startAt: props.state.date + " " + formState.hour + ":" + formState.minute,
+            endAt: props.state.date + " " + (parseInt(formState.hour) + 1) + ":" + formState.minute,
+        });
     }
 
 

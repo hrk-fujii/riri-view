@@ -3,6 +3,8 @@ import { Button } from "react-bootstrap";
 
 import apiUtil from "../../utils/apiUtil";
 
+import apiUtil from "../../utils/apiUtil";
+
 const stateIsValid = (state) => {
     switch (state.roomId) {
         case "loading":
@@ -82,7 +84,13 @@ const Selector = (props) => {
     }
 
     const handleSubmit = () => {
-        return true;
+        apiUtil.createReservation(setResult, {
+            name: formState.name,
+            roomId: props.state.roomId,
+            startAt: props.state.date + " " + formState.hour + ":" formState.minute,
+            endAt: props.state.date + " " + (intval(formState.hour) + 1) + ":" formState.minute,
+
+        })
     }
 
     return (<>
