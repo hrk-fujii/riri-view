@@ -20,6 +20,26 @@ const apiUtil = {
             return callBack("error");
         }
         connector.getJson("rooms", {}, callBack, errorFunc);
+    },
+
+    createReservation: (callBack, obj) => {
+        callBack(s => ({...s, isLoading: true}));
+        const errorFunc = (val) => {
+            util.log(val);
+            return callBack({
+                isLoading: false,
+                error: "error",
+                success: false
+            });
+        }
+        customBack = (val) => {
+            callBack({
+                isLoading: false,
+                error: "",
+                success: val
+            });
+        }
+        connector.postJson("secure/create", obj, customBack, errorFunc);
     }
 }
 
