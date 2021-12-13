@@ -18,11 +18,11 @@ function App() {
     </>);
   } else if (page === "createReserve") {
     return (<>
-      <CreateReserve state={state} />
+      <CreateReserve state={state} setPage={setPage} />
     </>);
   } else {
     return (<>
-      <Reservations state={state} />
+      <Reservations state={state} setPage={setPage} />
     </>);
   }
 }
