@@ -14,11 +14,7 @@ const stateIsValid = (state) => {
 }
 
 const CreateReserve = (props) => {
-    const [pageState, setPageState] = useState({
-        isLoading: false,
-        error: "",
-        success: false
-    });
+    const [pageState, setPageState] = useState({});
     const [formState, setFormState] = useState({
         hour: "none",
         minute: "none",
@@ -64,7 +60,8 @@ const CreateReserve = (props) => {
     // 予約作成ボタンの制御
     let createButton = stateIsValid(formState);
     let createButtonValue = "予約作成";
-    if (pageState.isLoading) {
+    if (pageState === "loading") {
+        createButton = false;
         createButtonValue = "通信中...";
     }
 
