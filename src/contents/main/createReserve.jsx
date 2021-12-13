@@ -7,7 +7,7 @@ const stateIsValid = (state) => {
     if ((state.hour === "none") || (state.minute === "none")) {
         return false;
     }
-    if (state.name.length <== 5) {
+    if (state.name.length <= 5) {
         return false;
     }
     return true;
@@ -35,7 +35,7 @@ const CreateReserve = (props) => {
     for (let i = now.getHours(); i <= 23; i++){
         hours.push(<option id={"hour_" + i} value={i}>{("00" + i).slice(-2)}</option>);
         for (let i1 = 0; i1 < 60; i1 += 5) {
-            if ((now.getHours() === i) && (now.getMinutes() >== i1)) {
+            if ((now.getHours() === i) && (now.getMinutes() >= i1)) {
                 continue;
             }
             minutes.push(<option id={"minutes_" + i1} value={i1}>{("00" + i1).slice(-2)}</option>);
@@ -72,3 +72,5 @@ const CreateReserve = (props) => {
         {createButton && <Button onClick={()=>{handleSubmit()}} variant="success">{createButtonValue}</Button>}
     </>);
 }
+
+export default CreateReserve;
