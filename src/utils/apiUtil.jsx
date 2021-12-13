@@ -26,20 +26,9 @@ const apiUtil = {
         callBack(s => ({...s, isLoading: true}));
         const errorFunc = (val) => {
             util.log(val);
-            return callBack({
-                isLoading: false,
-                error: "error",
-                success: false
-            });
+            return callBack("error");
         }
-        customBack = (val) => {
-            callBack({
-                isLoading: false,
-                error: "",
-                success: val
-            });
-        }
-        connector.postJson("secure/create", obj, customBack, errorFunc);
+        connector.postJson("secure/create", obj, callBack, errorFunc);
     }
 }
 
