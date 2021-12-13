@@ -51,8 +51,12 @@ const CreateReserve = (props) => {
         apiUtil.createReservation(setPageState, {
             name: formState.name,
             roomId: props.state.roomId,
-            startAt: props.state.date + " " + formState.hour + ":" + formState.minute,
-            endAt: props.state.date + " " + (parseInt(formState.hour) + 1) + ":" + formState.minute,
+            startAt: new Date(props.state.date + " " + formState.hour + ":" + formState.minute),
+            endAt: new Date(props.state.date + " " + (parseInt(formState.hour) + 1) + ":" + formState.minute),
+            type: 0,
+            userInfo: {
+                id: 1
+            }
         });
     }
 
@@ -65,10 +69,18 @@ const CreateReserve = (props) => {
         createButtonValue = "通信中...";
     }
 
+    
+    // 通信結果処理分岐
+    if (typeof(pageState) === "object") {
+        if (pageState.success) {
+            props.setPage("reserves");
+        }
+    }
+    
     return (<>
         <select name="hour" value={formState.hour} onChange={handleChange}>{hours}</select>
         <select name="minute" value={formState.minute} onChange={handleChange}>{minutes}</select>
-        <input id="reserver" name="name" value={formState.name} />
+        <input id="reserver" name="name" value={formState.name} onChange={handleChange} />
         {createButton && <Button onClick={()=>{handleSubmit()}} variant="success">{createButtonValue}</Button>}
     </>);
 }
