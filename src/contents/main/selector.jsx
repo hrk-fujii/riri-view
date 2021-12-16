@@ -105,9 +105,9 @@ const Selector = (props) => {
             </Col>
         </Row>
         <Row py="2">
-            <Col xs="12" md="5" px="2">
+            <Col xs="12" md="10" px="2">
             </Col>
-            <Col xs="12" md="2" p="2">
+            <Col xs="12" md="2" p="2" className="text-end">
                 {viewButton && <Button onClick={()=>{handleSubmit()}} variant="success">表示</Button>}
             </Col>
         </Row>
