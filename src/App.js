@@ -1,30 +1,14 @@
-import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from "react-bootstrap";
 
-import Reservations from "./contents/main/reservations";
-import Selector from "./contents/main/selector";
-import CreateReserve from "./contents/main/createReserve";
+import Top from "./contents/main/top";
 
 function App() {
-  const [page, setPage] = useState("createReserve");
-
-  const [state, setState] = useState({
-    date: "2021-12-1",
-    roomId: 1
-  });
-
-  if (page === "selector") {
-    return (<>
-      <Selector setState={setState} setPage={setPage}/>
-    </>);
-  } else if (page === "createReserve") {
-    return (<>
-      <CreateReserve state={state} setPage={setPage} />
-    </>);
-  } else {
-    return (<>
-      <Reservations state={state} setPage={setPage} />
-    </>);
-  }
+  return (
+    <Container style={{"max-width": "720px"}}>
+      <Top />
+    </Container>
+  );
 }
 
 export default App;
