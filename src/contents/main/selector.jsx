@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import apiUtil from "../../utils/apiUtil";
 
@@ -87,9 +87,29 @@ const Selector = (props) => {
     }
 
     return (<>
-        <select name="roomId" value={formState.roomId} onChange={handleChange}>{rooms}</select>
-        <select name="date" value={formState.date} onChange={handleChange}>{dates}</select>
-        {viewButton && <Button onClick={()=>{handleSubmit()}} variant="success">表示</Button>}
+        <Row py="2">
+            <Col xs="12" md="5" px="2">
+                <p>使用する場所</p>
+            </Col>
+            <Col xs="12" md="7" px="2">
+                <select name="roomId" value={formState.roomId} onChange={handleChange}>{rooms}</select>
+            </Col>
+        </Row>
+        <Row py="2">
+            <Col xs="12" md="5" px="2">
+                <p>日付</p>
+            </Col>
+            <Col xs="12" md="7" px="2">
+                <select name="date" value={formState.date} onChange={handleChange}>{dates}</select>
+            </Col>
+        </Row>
+        <Row py="2">
+            <Col xs="12" md="5" px="2">
+            </Col>
+            <Col xs="12" md="2" p="2">
+                {viewButton && <Button onClick={()=>{handleSubmit()}} variant="success">表示</Button>}
+            </Col>
+        </Row>
     </>);
     
 }
