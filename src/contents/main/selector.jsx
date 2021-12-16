@@ -83,7 +83,8 @@ const Selector = (props) => {
     }
 
     const handleSubmit = () => {
-        return true;
+        props.setState(s => ({...s, roomId: formState.roomId, date: formState.date}));
+        props.setPage("reservations");
     }
 
     return (<>

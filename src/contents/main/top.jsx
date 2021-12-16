@@ -5,7 +5,7 @@ import Selector from "./selector";
 import CreateReserve from "./createReserve";
 
 const Top = () => {
-  const [page, setPage] = useState("createReserve");
+  const [page, setPage] = useState("selector");
 
   const [state, setState] = useState({
     date: "2021-12-1",
