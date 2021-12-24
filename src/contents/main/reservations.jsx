@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import util from "../../utils/util";
 import apiUtil from "../../utils/apiUtil";
@@ -24,16 +24,26 @@ const Reservations = (props) => {
         });
     }
 
+    // 画面遷移
+    const handleSubmit = () => {
+        props.setPage("createReserve");
+    }
 
-    return (
-        <Row>
-            <Col className="12">
-                <table><thead><tr><th>開始時刻</th><th>終了時刻</th><th>名前</th></tr></thead>
+
+    return (<>
+        <Row py="2">
+            <Col className="12 px-2">
+                <table className="table"><thead><tr><th>開始時刻</th><th>終了時刻</th><th>名前</th></tr></thead>
                     <tbody>{reservations}</tbody>
                 </table>
             </Col>
         </Row>
-    );
+        <Row py="2">
+            <Col className="12 p-2 text-end">
+                <Button onClick={()=>{handleSubmit()}} variant="success">新規</Button>
+            </Col>
+        </Row>
+        </>);
 }
 
 export default Reservations;
